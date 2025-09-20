@@ -3,3 +3,5 @@ lxml  # The parser BeautifulSoup uses under the hood
 
 sentence-transformers
 faiss-cpu 
+
+pandas
