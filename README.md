@@ -26,6 +26,10 @@ This work proposes and implements a novel, automated pipeline that leverages a *
 
 The core of this project is an end-to-end pipeline that takes source documents and a knowledge base as input and produces structured, validated functional requirements as output.
 
+Below is a diagram illustrating the complete architecture of the RAG pipeline, from initial data ingestion to the final, refined output.
+
+![Thesis Project Architecture](Architecture_Diagram.png)
+
 **High-Level Flow:**
 `[Input Documents + Knowledge Base] -> [RAG Pipeline] -> [Structured, Validated FRs]`
 
@@ -38,11 +42,12 @@ The core of this project is an end-to-end pipeline that takes source documents a
 
 ## 4. Results & Example Output
 
-The end-to-end pipeline successfully demonstrates the ability to refine raw requirements into a compliant, well-formed format. The RAG system correctly retrieves relevant rules and uses them to guide the Gemma LLM in generating a high-quality output.
+The end-to-end pipeline successfully demonstrates the ability to refine raw requirements into a compliant, well-formed format. The RAG system correctly retrieves relevant rules and uses them to guide the Gemma LLM in generating high-quality outputs.
 
-Below is a screenshot of the final output from the demonstration notebook (`03_end_to_end_pipeline_demo.ipynb`).
+Below are screenshots of the final output from the demonstration notebook (`03_end_to_end_pipeline_demo.ipynb`), showing the input, the retrieved context, and the final, improved functional requirements.
 
-![Successful RAG Pipeline Output](https://github.com/DilkiSandunika/VGTU_Thesis_Project/blob/main/result%20screenshot.png)
+![Successful RAG Pipeline Output 1](https://github.com/DilkiSandunika/VGTU_Thesis_Project/blob/main/result%20screenshot.png)
+![Successful RAG Pipeline Output 2](https://github.com/DilkiSandunika/VGTU_Thesis_Project/blob/main/results%20screenshot_2.png)
 
 ## 5. Technology Stack
 
@@ -117,3 +122,4 @@ This implementation is a practical demonstration of the methodologies described 
 ## 11. License
 
 This project is licensed under the MIT License. Please see the [LICENSE](LICENSE) file for full details.
+
