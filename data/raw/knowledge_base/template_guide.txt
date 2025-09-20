@@ -1,0 +1,1 @@
+All extracted functional requirements must strictly follow this format: "The system shall [action description] for the [user role]." The requirement must be a complete, standalone sentence. For example: "The system shall generate a monthly report for the administrator."

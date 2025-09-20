@@ -1,0 +1,5 @@
+Rule 101: All functional requirements must explicitly state the user role involved (e.g., 'the admin', 'the user', 'the officer').
+Rule 102: Any requirement handling personally identifiable information (PII) or sensitive data must mention encryption or secure handling.
+Rule 103: The system shall use role-based access control for any function that creates, modifies, or deletes data.
+Rule 104: Requirements must be written in a clear, active voice (e.g., "The system shall do X" not "X should be done").
+Rule 105: Each requirement must be atomic, meaning it describes a single, verifiable function.
