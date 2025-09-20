@@ -100,16 +100,42 @@ OPENAI_API_KEY="your_api_key_here"
 
 ## 6. How to Run the Demo
 
-The easiest way to see the system in action is to run the Jupyter Notebooks located in the `/notebooks` directory.
+This project can be run either directly in your browser using Google Colab (recommended) or on your local machine.
 
-1.  **Start Jupyter Lab:**
+### A. Running on Google Colab (Recommended Method)
+
+This is the easiest way to see the system in action, as it requires no local installation. Each notebook can be opened with a single click.
+
+1.  **`01_data_exploration.ipynb`** - Parses the raw XML and creates a clean CSV of requirements.
+    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DilkiSandunika/VGTU_Thesis_Project/blob/main/notebooks/01_data_exploration.ipynb)
+
+2.  **`02_knowledge_base_creation.ipynb`** - Builds the vector database from the knowledge base files.
+    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DilkiSandunika/VGTU_Thesis_Project/blob/main/notebooks/02_knowledge_base_creation.ipynb)
+
+3.  **`03_end_to_end_pipeline_demo.ipynb`** - The main demonstration. This notebook runs the full RAG pipeline and shows the final results.
+    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DilkiSandunika/VGTU_Thesis_Project/blob/main/notebooks/03_end_to_end_pipeline_demo.ipynb)
+
+#### **Instructions for Colab:**
+*   When you open a notebook, you will need to upload the required data files as instructed in the notebook's first few cells.
+*   For the `03_...` notebook, you **must enable a GPU accelerator**. To do this, go to **Runtime > Change runtime type > Hardware accelerator** and select **T4 GPU**.
+*   You will also need to add your free Hugging Face token to Colab's "Secrets" manager with the name `HF_TOKEN` to run the final notebook.
+
+### B. Running Locally
+
+Follow these instructions if you have a local Python environment set up.
+
+1.  Ensure you have followed all the steps in the **"Installation"** section above.
+2.  Make sure your virtual environment is activated:
+    ```bash
+    # On Windows using Git Bash
+    source venv/Scripts/activate
+    ```
+3.  Launch Jupyter Lab from your terminal:
     ```bash
     jupyter lab
     ```
-2.  **Run the notebooks in order:**
-    *   **`01_data_exploration.ipynb`**: Inspects the source documents.
-    *   **`02_knowledge_base_creation.ipynb`**: Builds the vector database from the knowledge base files.
-    *   **`03_end_to_end_pipeline_demo.ipynb`**: The main demonstration. This notebook runs the full RAG pipeline on a sample document and displays the extracted, validated functional requirements.
+4.  Once Jupyter Lab opens in your browser, navigate to the `/notebooks` directory.
+5.  Open and run the notebooks sequentially (`01_...`, `02_...`, `03_...`) to execute the full data processing and demonstration pipeline.
 
 ## 7. Project Structure
 
@@ -161,3 +187,4 @@ If you use the code or concepts from this research, please cite the original the
   address   = {Vilnius, Lithuania}
 }
 ```
+
