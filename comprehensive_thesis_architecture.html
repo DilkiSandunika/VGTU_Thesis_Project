@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master's Thesis Architecture: RAG-based FR Extraction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+            min-height: 100vh;
+        }
+        
+        .main-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="4" height="4"><path d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2" style="stroke:rgba(255,255,255,0.1), stroke-width:1"/></pattern></defs><rect width="100" height="20" fill="url(%23diagonalHatch)"/></svg>') repeat;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .thesis-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .thesis-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .thesis-focus {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+        }
+        
+        .focus-item {
+            background: rgba(255,255,255,0.2);
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .architecture-body {
+            padding: 40px;
+        }
+        
+        .high-level-flow {
+            background: linear-gradient(145deg, #ecf0f1, #bdc3c7);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 3px solid #95a5a6;
+            text-align: center;
+        }
+        
+        .flow-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .flow-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            min-width: 200px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .flow-input {
+            background: linear-gradient(145deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .flow-process {
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .flow-output {
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            color: white;
+        }
+        
+        .flow-arrow {
+            font-size: 24px;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .detailed-pipeline {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .pipeline-step {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-top: 5px solid #e74c3c;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .pipeline-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #e74c3c;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .step-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        
+        .step-description {
+            color: #7f8c8d;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .step-tech {
+            background: #ecf0f1;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #34495e;
+            font-weight: bold;
+        }
+        
+        .rag-highlight {
+            background: linear-gradient(145deg, #fff5f5, #fed7d7);
+            border: 3px dashed #e74c3c;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .rag-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #c0392b;
+            margin-bottom: 25px;
+        }
+        
+        .rag-components {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .rag-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .rag-section-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tech-stack {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 2px solid #dee2e6;
+        }
+        
+        .tech-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .tech-category {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        
+        .tech-category-title {
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 12px;
+            font-size: 16px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0;
+            font-size: 14px;
+        }
+        
+        .tech-icon {
+            width: 20px;
+            height: 20px;
+            background: #3498db;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .results-section {
+            background: linear-gradient(145deg, #d5f4e6, #a8e6cf);
+            border-radius: 20px;
+            padding: 30px;
+            border: 3px solid #27ae60;
+        }
+        
+        .results-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #1e8449;
+            margin-bottom: 20px;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .result-item {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        
+        .result-metric {
+            font-size: 18px;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 5px;
+        }
+        
+        .result-description {
+            color: #34495e;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 1200px) {
+            .detailed-pipeline {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .detailed-pipeline {
+                grid-template-columns: 1fr;
+            }
+            
+            .flow-diagram {
+                flex-direction: column;
+            }
+            
+            .thesis-focus {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="header-content">
+                <div class="thesis-title">Subject Domain Analysis Based On Text Mining Using a Large Language Model</div>
+                <div class="thesis-subtitle">Automated Functional Requirements Extraction via Retrieval-Augmented Generation</div>
+                <div class="thesis-focus">
+                    <div class="focus-item">🎯 CONSISTENCY</div>
+                    <div class="focus-item">✅ COMPLIANCE</div>
+                    <div class="focus-item">🔗 TRACEABILITY</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="architecture-body">
+            <!-- High-Level Flow -->
+            <div class="high-level-flow">
+                <div class="flow-title">End-to-End Pipeline Overview</div>
+                <div class="flow-diagram">
+                    <div class="flow-box flow-input">
+                        <strong>📄 Input Documents</strong><br>
+                        <small>XML SRS + Knowledge Base</small>
+                    </div>
+                    <div class="flow-arrow">➜</div>
+                    <div class="flow-box flow-process">
+                        <strong>🔄 RAG Pipeline</strong><br>
+                        <small>Retrieval + Generation</small>
+                    </div>
+                    <div class="flow-arrow">➜</div>
+                    <div class="flow-box flow-output">
+                        <strong>📋 Structured FRs</strong><br>
+                        <small>Validated & Compliant</small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Detailed Pipeline Steps -->
+            <div class="detailed-pipeline">
+                <div class="pipeline-step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Ingestion & Indexing</div>
+                    <div class="step-description">Knowledge base containing compliance rules and templates is loaded and indexed into a searchable vector database</div>
+                    <div class="step-tech">FAISS + Sentence-Transformers</div>
+                </div>
+                
+                <div class="pipeline-step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Input Processing</div>
+                    <div class="step-description">Raw SRS document in XML format is parsed to extract a clean list of requirements</div>
+                    <div class="step-tech">BeautifulSoup4 + XML Parser</div>
+                </div>
+                
+                <div class="pipeline-step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Contextual Retrieval</div>
+                    <div class="step-description">System retrieves the most relevant compliance rules from the indexed knowledge base for each requirement</div>
+                    <div class="step-tech">Vector Similarity Search</div>
+                </div>
+                
+                <div class="pipeline-step">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Augmented Prompting</div>
+                    <div class="step-description">Context-rich prompt is constructed containing the original requirement and retrieved knowledge</div>
+                    <div class="step-tech">Prompt Engineering</div>
+                </div>
+                
+                <div class="pipeline-step">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Intelligent Generation</div>
+                    <div class="step-description">Google Gemma model processes the prompt to generate refined, compliant functional requirements</div>
+                    <div class="step-tech">Google Gemma 2B-IT</div>
+                </div>
+            </div>
+            
+            <!-- RAG Architecture Highlight -->
+            <div class="rag-highlight">
+                <div class="rag-title">🔄 Retrieval-Augmented Generation (RAG) Core</div>
+                <div class="rag-components">
+                    <div class="rag-section">
+                        <div class="rag-section-title">
+                            🔍 Retrieval Component
+                        </div>
+                        <div><strong>Vector Database:</strong> FAISS (Meta AI)</div>
+                        <div><strong>Embeddings:</strong> all-MiniLM-L6-v2</div>
+                        <div><strong>Knowledge Base:</strong> Domain-specific rules & templates</div>
+                        <div><strong>Similarity Search:</strong> Cosine similarity</div>
+                    </div>
+                    
+                    <div class="rag-section">
+                        <div class="rag-section-title">
+                            🤖 Generation Component
+                        </div>
+                        <div><strong>LLM:</strong> Google Gemma 2B-IT</div>
+                        <div><strong>Framework:</strong> Hugging Face Transformers</div>
+                        <div><strong>Augmentation:</strong> Context-grounded prompts</div>
+                        <div><strong>Output:</strong> Refined, compliant FRs</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Technology Stack -->
+            <div class="tech-stack">
+                <div class="tech-title">🛠️ Technology Stack & Implementation</div>
+                <div class="tech-grid">
+                    <div class="tech-category">
+                        <div class="tech-category-title">Core Language & Environment</div>
+                        <div class="tech-item">
+                            <div class="tech-icon">Py</div>
+                            <div>Python 3.10+</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📓</div>
+                            <div>Google Colab (T4 GPU)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category">
+                        <div class="tech-category-title">ML & NLP Libraries</div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🤗</div>
+                            <div>Transformers (Hugging Face)</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🔥</div>
+                            <div>PyTorch</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📊</div>
+                            <div>Sentence-Transformers</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category">
+                        <div class="tech-category-title">Vector Database & Search</div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🔍</div>
+                            <div>FAISS (Meta AI)</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📈</div>
+                            <div>Vector Similarity Search</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category">
+                        <div class="tech-category-title">Data Processing</div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🐼</div>
+                            <div>Pandas</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🍜</div>
+                            <div>BeautifulSoup4</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📄</div>
+                            <div>XML Parsing</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category">
+                        <div class="tech-category-title">Large Language Model</div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🤖</div>
+                            <div>Google Gemma 2B-IT</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🎯</div>
+                            <div>Instruction-Tuned Model</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category">
+                        <div class="tech-category-title">Development & Reproducibility</div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📚</div>
+                            <div>Jupyter Notebooks</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🔄</div>
+                            <div>Modular Architecture</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results & Achievements -->
+            <div class="results-section">
+                <div class="results-title">🎯 Key Achievements & Results</div>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <div class="result-metric">✅ Automated Extraction</div>
+                        <div class="result-description">Successfully identifies and extracts functional requirements from raw XML documents with high accuracy</div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div class="result-metric">🔍 Compliance Verification</div>
+                        <div class="result-description">Validates extracted requirements against domain-specific knowledge base of rules and templates</div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div class="result-metric">🚀 Reduced Hallucinations</div>
+                        <div class="result-description">RAG architecture grounds LLM responses in retrieved context, significantly improving accuracy</div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div class="result-metric">📈 Enhanced Consistency</div>
+                        <div class="result-description">Standardized output format ensures consistent functional requirement representation</div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div class="result-metric">⚡ Efficiency Gains</div>
+                        <div class="result-description">Dramatically reduces time and effort required for manual requirement extraction and validation</div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div class="result-metric">🔄 Reproducible Results</div>
+                        <div class="result-description">Modular Google Colab implementation enables easy replication and validation of research findings</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation to pipeline steps
+            const steps = document.querySelectorAll('.pipeline-step');
+            steps.forEach((step, index) => {
+                step.style.animationDelay = `${index * 0.2}s`;
+                step.style.animation = 'fadeInUp 0.6s ease-out forwards';
+            });
+            
+            // Add hover interactions
+            steps.forEach(step => {
+                step.addEventListener('click', function() {
+                    const stepNumber = this.querySelector('.step-number').textContent;
+                    const stepTitle = this.querySelector('.step-title').textContent;
+                    const stepDesc = this.querySelector('.step-description').textContent;
+                    const stepTech = this.querySelector('.step-tech').textContent;
+                    
+                    const modal = document.createElement('div');
+                    modal.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0,0,0,0.8);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        z-index: 1000;
+                        backdrop-filter: blur(5px);
+                    `;
+                    
+                    modal.innerHTML = `
+                        <div style="
+                            background: white;
+                            padding: 40px;
+                            border-radius: 20px;
+                            max-width: 600px;
+                            margin: 20px;
+                            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                            text-align: center;
+                        ">
+                            <div style="
+                                background: #e74c3c;
+                                color: white;
+                                width: 60px;
+                                height: 60px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 24px;
+                                font-weight: bold;
+                                margin: 0 auto 20px;
+                                box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+                            ">${stepNumber}</div>
+                            <h2 style="color: #2c3e50; margin-bottom: 20px;">${stepTitle}</h2>
+                            <p style="color: #7f8c8d; line-height: 1.6; margin-bottom: 20px; font-size: 16px;">${stepDesc}</p>
+                            <div style="
+                                background: #ecf0f1;
+                                padding: 15px;
+                                border-radius: 10px;
+                                margin-bottom: 25px;
+                                font-weight: bold;
+                                color: #34495e;
+                            ">Technology: ${stepTech}</div>
+                            <button onclick="this.closest('div').remove()" style="
+                                background: linear-gradient(145deg, #e74c3c, #c0392b);
+                                color: white;
+                                border: none;
+                                padding: 15px 30px;
+                                border-radius: 10px;
+                                cursor: pointer;
+                                font-size: 16px;
+                                font-weight: bold;
+                                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                            ">Close</button>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(modal);
+                    
+                    modal.addEventListener('click', function(e) {
+                        if (e.target === modal) {
+                            modal.remove();
+                        }
+                    });
+                });
+            });
+        });
+        
+        // Add CSS animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
