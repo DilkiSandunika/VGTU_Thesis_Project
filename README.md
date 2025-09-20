@@ -60,9 +60,8 @@ Follow these instructions to set up the project environment and run the demonstr
 
 ### Prerequisites
 
-*   Python 3.9 or higher
+*   Python 3.10+
 *   Git
-*   An API Key from an LLM provider (e.g., OpenAI).
 
 ### Installation
 
@@ -137,7 +136,26 @@ Follow these instructions if you have a local Python environment set up.
 4.  Once Jupyter Lab opens in your browser, navigate to the `/notebooks` directory.
 5.  Open and run the notebooks sequentially (`01_...`, `02_...`, `03_...`) to execute the full data processing and demonstration pipeline.
 
-## 7. Project Structure
+## 7. Results & Example Output
+
+The end-to-end pipeline successfully demonstrates the ability to refine raw, unstructured requirements into a compliant, well-formed format. The RAG system correctly retrieves relevant rules from the custom knowledge base and uses them to guide the Google Gemma LLM in generating a high-quality output.
+
+Below is a screenshot of the final output from the demonstration notebook (`03_end_to_end_pipeline_demo.ipynb`), showing the input, the retrieved context, and the final, improved functional requirement.
+
+![Successful RAG Pipeline Output](https://github.com/DilkiSandunika/VGTU_Thesis_Project/blob/main/result%20screenshot.png)
+
+## 8. Technology Stack
+
+This project leverages a modern, open-source technology stack to build the RAG pipeline.
+
+*   **Language:** Python 3.10+
+*   **Core Libraries:** Pandas, PyTorch, Transformers, BeautifulSoup4
+*   **Generative LLM:** Google Gemma 2B-IT (via Hugging Face)
+*   **Vector Database:** FAISS (from Meta AI)
+*   **Text Embeddings:** Sentence-Transformers (`all-MiniLM-L6-v2`)
+*   **Development Environment:** Google Colab (with T4 GPU)
+  
+## 9. Project Structure
 
 ```
 .
@@ -156,7 +174,7 @@ Follow these instructions if you have a local Python environment set up.
 └── README.md               # This file
 ```
 
-## 8. Methodology & Evaluation
+## 10. Methodology & Evaluation
 
 This implementation is grounded in the methodologies described in the thesis.
 
@@ -166,15 +184,15 @@ This implementation is grounded in the methodologies described in the thesis.
     *   **Compliance Score:** A custom metric that checks adherence to the rules in the knowledge base.
     *   **Technical Term Coverage:** Measures the use of correct domain-specific terminology.
 
-## 9. License
+## 11. License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-## 10. Acknowledgements
+## 12. Acknowledgements
 
 I would like to express my sincere gratitude to my thesis supervisor, [Supervisor's Name], for their invaluable guidance and support throughout this research.
 
-## 11. Citation
+## 13. Citation
 
 If you use the code or concepts from this research, please cite the original thesis:
 
@@ -187,4 +205,5 @@ If you use the code or concepts from this research, please cite the original the
   address   = {Vilnius, Lithuania}
 }
 ```
+
 
