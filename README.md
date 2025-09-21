@@ -91,6 +91,7 @@ While Colab is recommended, you can also run the project on a local machine if y
 *   **Knowledge Base:** A custom knowledge base is located in `data/raw/knowledge_base/` and includes `compliance_rules.txt` and `template_guide.txt`.
 
 ## 8. Project Structure
+The repository is organized to separate data, notebooks, and source code, following best practices for reproducibility.
 
 ```
 .
@@ -98,7 +99,6 @@ While Colab is recommended, you can also run the project on a local machine if y
 │   ├── raw/                # Original, unmodified data
 │   │   ├── source_documents/ # Contains the raw SRS XML file for analysis.
 │   │   └── knowledge_base/   # Contains compliance rules and templates.
-│   └── processed/          # Processed data, including the vector DB
 ├── notebooks/              # Contains the sequential Colab notebooks for the pipeline.
 │ ├── 01_data_exploration.ipynb  # STEP 1: Reads the raw XML, parses it, and saves a clean CSV.
 │ ├── 02_knowledge_base_creation.ipynb # STEP 2: Builds and saves the FAISS vector database from the knowledge base.
@@ -124,6 +124,7 @@ This implementation is a practical demonstration of the methodologies described 
 ## 11. License
 
 This project is licensed under the MIT License. Please see the [LICENSE](LICENSE) file for full details.
+
 
 
 
