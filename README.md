@@ -100,9 +100,9 @@ While Colab is recommended, you can also run the project on a local machine if y
 │   │   └── knowledge_base/   # Custom compliance and template files
 │   └── processed/          # Processed data, including the vector DB
 ├── notebooks/              # Jupyter notebooks for exploration and demonstration
-│ ├── 01_data_exploration.ipynb
-│ ├── 02_knowledge_base_creation.ipynb
-│ └── 03_end_to_end_pipeline_demo.ipynb
+│ ├── 01_data_exploration.ipynb  # STEP 1: Reads the raw XML, parses it, and saves a clean CSV.
+│ ├── 02_knowledge_base_creation.ipynb # STEP 2: Builds and saves the FAISS vector database from the knowledge base.
+│ └── 03_end_to_end_pipeline_demo.ipynb # STEP 3: The final demo that runs the full RAG pipeline and validation.
 ├── src/                    # Core Python source code
 │   └── validation.py       # Functions for calculating evaluation metrics
 ├── .env.example            # Example environment file
@@ -124,5 +124,6 @@ This implementation is a practical demonstration of the methodologies described 
 ## 11. License
 
 This project is licensed under the MIT License. Please see the [LICENSE](LICENSE) file for full details.
+
 
 
