@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG-Based FR Extraction System Architecture</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+        .architecture {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .layer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        .component {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 2px solid #e74c3c;
+            min-width: 200px;
+            text-align: center;
+            position: relative;
+        }
+        .component.input {
+            border-color: #3498db;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+        }
+        .component.processing {
+            border-color: #e67e22;
+            background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+            color: white;
+        }
+        .component.storage {
+            border-color: #9b59b6;
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+            color: white;
+        }
+        .component.model {
+            border-color: #27ae60;
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            color: white;
+        }
+        .component.output {
+            border-color: #f39c12;
+            background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+            color: white;
+        }
+        .component h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .component p {
+            margin: 5px 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .tech-stack {
+            font-size: 12px;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 8px;
+            border-radius: 5px;
+            margin-top: 8px;
+            display: inline-block;
+        }
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 20px solid #34495e;
+            margin: 10px auto;
+            position: relative;
+        }
+        .arrow.horizontal {
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 20px solid #34495e;
+            margin: 0 20px;
+        }
+        .flow-label {
+            background: #34495e;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+        .horizontal-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .pipeline-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
+        }
+        .pipeline-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .step-number {
+            background: #e74c3c;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: absolute;
+            top: -15px;
+            left: -15px;
+        }
+        .metrics-box {
+            background: linear-gradient(135deg, #55a3ff 0%, #003d82 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">RAG-Based Functional Requirements Extraction System</h1>
+        <p class="subtitle">Subject Domain Analysis Based On Text Mining Using a Large Language Model</p>
+        
+        <div class="architecture">
+            <!-- Input Layer -->
+            <div class="layer">
+                <div class="component input">
+                    <div class="step-number">1</div>
+                    <h3>Source Documents</h3>
+                    <p>Raw SRS XML Files</p>
+                    <p>PURE Dataset (cctns_frs.xml)</p>
+                    <div class="tech-stack">BeautifulSoup4</div>
+                </div>
+                
+                <div class="arrow horizontal"></div>
+                
+                <div class="component processing">
+                    <h3>XML Parser</h3>
+                    <p>Extract Requirements</p>
+                    <p>Clean Text Processing</p>
+                </div>
+                
+                <div class="arrow horizontal"></div>
+                
+                <div class="component input">
+                    <h3>Knowledge Base</h3>
+                    <p>compliance_rules.txt</p>
+                    <p>template_guide.txt</p>
+                    <div class="tech-stack">Domain-Specific Rules</div>
+                </div>
+            </div>
+
+            <div class="arrow">
+                <div class="flow-label">Data Ingestion & Preprocessing</div>
+            </div>
+
+            <!-- Indexing Layer -->
+            <div class="pipeline-section">
+                <div class="pipeline-title">📊 Knowledge Base Indexing & Vector Storage</div>
+                <div class="horizontal-flow">
+                    <div class="component storage">
+                        <div class="step-number">2</div>
+                        <h3>Text Embeddings</h3>
+                        <p>Sentence-Transformers</p>
+                        <p>all-MiniLM-L6-v2</p>
+                        <div class="tech-stack">Vector Embeddings</div>
+                    </div>
+                    
+                    <div class="arrow horizontal"></div>
+                    
+                    <div class="component storage">
+                        <h3>FAISS Vector DB</h3>
+                        <p>Indexed Knowledge Base</p>
+                        <p>Semantic Search Ready</p>
+                        <div class="tech-stack">Meta AI FAISS</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">
+                <div class="flow-label">Retrieval-Augmented Generation Pipeline</div>
+            </div>
+
+            <!-- RAG Core Pipeline -->
+            <div class="pipeline-section">
+                <div class="pipeline-title">🔄 RAG Core Processing Pipeline</div>
+                <div class="horizontal-flow">
+                    <div class="component processing">
+                        <div class="step-number">3</div>
+                        <h3>Contextual Retrieval</h3>
+                        <p>Query Vector Database</p>
+                        <p>Retrieve Relevant Rules</p>
+                        <p>Semantic Similarity Matching</p>
+                    </div>
+                    
+                    <div class="arrow horizontal"></div>
+                    
+                    <div class="component processing">
+                        <div class="step-number">4</div>
+                        <h3>Augmented Prompting</h3>
+                        <p>Context-Rich Prompt Construction</p>
+                        <p>Original Requirement + Retrieved Knowledge</p>
+                        <p>Template-Based Formatting</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">
+                <div class="flow-label">LLM Generation</div>
+            </div>
+
+            <!-- Generation Layer -->
+            <div class="layer">
+                <div class="component model">
+                    <div class="step-number">5</div>
+                    <h3>Google Gemma 2B-IT</h3>
+                    <p>Large Language Model</p>
+                    <p>Intelligent FR Generation</p>
+                    <p>Context-Aware Processing</p>
+                    <div class="tech-stack">Hugging Face Transformers</div>
+                </div>
+            </div>
+
+            <div class="arrow">
+                <div class="flow-label">Validation & Scoring</div>
+            </div>
+
+            <!-- Validation Layer -->
+            <div class="pipeline-section">
+                <div class="pipeline-title">✅ Quality Validation & Compliance Assessment</div>
+                <div class="horizontal-flow">
+                    <div class="component processing">
+                        <div class="step-number">6</div>
+                        <h3>Automated Validation</h3>
+                        <p>Compliance Score Calculation</p>
+                        <p>Quality Assessment</p>
+                        <p>Detailed Feedback Generation</p>
+                    </div>
+                    
+                    <div class="metrics-box">
+                        <strong>Evaluation Metrics:</strong><br>
+                        • Faithfulness Score<br>
+                        • Compliance Score<br>
+                        • Consistency Validation<br>
+                        • Traceability Assessment
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">
+                <div class="flow-label">Final Output</div>
+            </div>
+
+            <!-- Output Layer -->
+            <div class="layer">
+                <div class="component output">
+                    <div class="step-number">7</div>
+                    <h3>Structured FRs</h3>
+                    <p>Validated Functional Requirements</p>
+                    <p>Compliance-Verified</p>
+                    <p>Standardized Format</p>
+                    <div class="tech-stack">Enhanced Consistency & Traceability</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technology Stack Summary -->
+        <div class="pipeline-section" style="margin-top: 40px;">
+            <div class="pipeline-title">🛠️ Technology Stack</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                <div style="background: #3498db; color: white; padding: 10px; border-radius: 5px; text-align: center;">
+                    <strong>Language:</strong><br>Python 3.10+
+                </div>
+                <div style="background: #e74c3c; color: white; padding: 10px; border-radius: 5px; text-align: center;">
+                    <strong>LLM:</strong><br>Google Gemma 2B-IT
+                </div>
+                <div style="background: #9b59b6; color: white; padding: 10px; border-radius: 5px; text-align: center;">
+                    <strong>Vector DB:</strong><br>FAISS (Meta AI)
+                </div>
+                <div style="background: #27ae60; color: white; padding: 10px; border-radius: 5px; text-align: center;">
+                    <strong>Embeddings:</strong><br>Sentence-Transformers
+                </div>
+                <div style="background: #f39c12; color: white; padding: 10px; border-radius: 5px; text-align: center;">
+                    <strong>Environment:</strong><br>Google Colab (T4 GPU)
+                </div>
+                <div style="background: #34495e; color: white; padding: 10px; border-radius: 5px; text-align: center;">
+                    <strong>Libraries:</strong><br>PyTorch, Transformers, Pandas
+                </div>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);"></div>
+                <span>Input Components</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);"></div>
+                <span>Processing Steps</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);"></div>
+                <span>Storage & Indexing</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #00b894 0%, #00a085 100%);"></div>
+                <span>AI Model</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);"></div>
+                <span>Output & Results</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
