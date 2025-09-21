@@ -96,17 +96,17 @@ While Colab is recommended, you can also run the project on a local machine if y
 .
 ├── data/
 │   ├── raw/                # Original, unmodified data
-│   │   ├── source_documents/ # SRS files from PURE dataset go here
-│   │   └── knowledge_base/   # Custom compliance and template files
+│   │   ├── source_documents/ # Contains the raw SRS XML file for analysis.
+│   │   └── knowledge_base/   # Contains compliance rules and templates.
 │   └── processed/          # Processed data, including the vector DB
-├── notebooks/              # Jupyter notebooks for exploration and demonstration
+├── notebooks/              # Contains the sequential Colab notebooks for the pipeline.
 │ ├── 01_data_exploration.ipynb  # STEP 1: Reads the raw XML, parses it, and saves a clean CSV.
 │ ├── 02_knowledge_base_creation.ipynb # STEP 2: Builds and saves the FAISS vector database from the knowledge base.
 │ └── 03_end_to_end_pipeline_demo.ipynb # STEP 3: The final demo that runs the full RAG pipeline and validation.
 ├── src/                    # Core Python source code
 │   └── validation.py       # Functions for calculating evaluation metrics
 ├── .env.example            # Example environment file
-├── requirements.txt        # Project dependencies
+├── requirements.txt        # A list of all Python packages required to run the project.
 └── README.md               # This file
 ```
 
@@ -124,6 +124,7 @@ This implementation is a practical demonstration of the methodologies described 
 ## 11. License
 
 This project is licensed under the MIT License. Please see the [LICENSE](LICENSE) file for full details.
+
 
 
 
