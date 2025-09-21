@@ -18,7 +18,7 @@ This work proposes and implements a novel, automated pipeline that leverages a *
 ## 2. Key Features
 
 *   **Automated FR Extraction:** Identifies and extracts functional requirements from raw XML documents.
-*   **Compliance & Consistency Verification:** Validates extracted requirements against a custom, domain-specific knowledge base of rules and templates.
+*   **Automated Compliance Scoring:** Automatically validates the generated requirements against the knowledge base and provides a quantitative compliance score and detailed feedback.
 *   **Retrieval-Augmented Generation (RAG):** Uses Google's Gemma model, grounded in retrieved context, to reduce hallucinations and improve accuracy.
 *   **Modular and Reproducible:** The code is structured in Google Colab notebooks for easy, step-by-step reproduction of the results.
 
@@ -100,9 +100,10 @@ While Colab is recommended, you can also run the project on a local machine if y
 │   │   └── knowledge_base/   # Custom compliance and template files
 │   └── processed/          # Processed data, including the vector DB
 ├── notebooks/              # Jupyter notebooks for exploration and demonstration
+│ ├── 01_data_exploration.ipynb
+│ ├── 02_knowledge_base_creation.ipynb
+│ └── 03_end_to_end_pipeline_demo.ipynb
 ├── src/                    # Core Python source code
-│   ├── data_processing.py  # Functions for cleaning and preparing text
-│   ├── rag_pipeline.py     # Main RAG architecture logic
 │   └── validation.py       # Functions for calculating evaluation metrics
 ├── .env.example            # Example environment file
 ├── requirements.txt        # Project dependencies
@@ -115,6 +116,7 @@ This implementation is a practical demonstration of the methodologies described 
 
 *   **Core Technique:** The project employs a Retrieval-Augmented Generation (RAG) pipeline.
 *   **Retrieval:** A FAISS vector index, built from text embeddings created by a Sentence-Transformer model, is used to find relevant compliance rules from a knowledge base.
+*   **Automated Validation:** In alignment with the thesis, the `03_end_to_end_pipeline_demo.ipynb` notebook includes a function to calculate a **Compliance Score**. This provides quantitative feedback on the quality of the generated output, directly demonstrating the "Quality Validation" stage of the proposed architecture.
 *   **Generation:** Google's Gemma 2B-IT, a powerful open-source LLM, is used to refine raw requirements based on the retrieved context.
 
 *(Note: While the thesis discusses quantitative evaluation metrics like Faithfulness and Compliance Score, this reference implementation focuses on the end-to-end pipeline. The `src/validation.py` module for automated metrics is a planned future extension.)*
@@ -122,4 +124,5 @@ This implementation is a practical demonstration of the methodologies described 
 ## 11. License
 
 This project is licensed under the MIT License. Please see the [LICENSE](LICENSE) file for full details.
+
 
