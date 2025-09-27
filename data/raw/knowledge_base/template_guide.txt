@@ -1,1 +1,6 @@
-All extracted functional requirements must strictly follow this format: "The system shall [action description] for the [user role]." The requirement must be a complete, standalone sentence. For example: "The system shall generate a monthly report for the administrator."
+All extracted functional requirements must strictly follow one of these formats: 
+The <system name> shall <system response>.
+WHILE <in a specific state> the <system name> shall <system response>.
+WHEN <trigger> <optional precondition> the <system name> shall <system response>.
+WHERE <feature is included> the <system name> shall <system response>.
+IF <unwanted condition or event>, THEN the <system name> shall <system response>.
