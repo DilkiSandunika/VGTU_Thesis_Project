@@ -48,11 +48,12 @@ In summary, by targeting the demanding Healthcare & MedTech sector and spotlight
 To translate the process-oriented BPMN diagrams into a clear software design, the following Unified Modeling Language (UML) diagrams illustrate the system's architecture and the dynamic interactions of its components. These diagrams provide a software-centric view, highlighting how Generative AI is structurally and behaviorally integrated into the solution.
 ## 1. Use Case Diagram: System Scope and User Goals
 This diagram provides a high-level overview of the system from the perspective of its primary user, the Requirements Engineer. It defines the system's boundaries and the core functionalities it offers to achieve the main goal: generating compliant Functional Requirements.
-
+![alt text](UseCaseDiagram.png)
 
 ## 2. Component Diagram: System Architecture
 This diagram presents the static, architectural blueprint of the solution. It breaks the system down into logical, modular components and shows their relationships. This view clearly isolates the Generative AI Core and its dependencies on other services and data stores, reflecting the modular design implied by the BPMN sub-processes.
-
+![alt text](ComponentDiagram.png)
 
 ## 3. Sequence Diagram: Dynamic Interaction and Refinement Loop
 This is the most detailed diagram, illustrating the dynamic, step-by-step interactions between the components to process a single request. Critically, it visualizes the iterative refinement loop, a sophisticated feature derived from the BPMN error handling and quality gateways. This shows how the system doesn't just generate output once, but actively works to improve its quality based on continuous validation.
+![alt text](SequenceDiagram.png)
