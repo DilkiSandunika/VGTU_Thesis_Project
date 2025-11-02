@@ -12,16 +12,25 @@ Generate a single Functional Requirement (FR) from the final observation X, usin
 ## Known (X,y) Pairs (from MedQuAD DataSet Sample - Lab 1.2 Equivalent):
 
 **Example 1:**
+
 **Observation X1:** "What are the symptoms of diabetes?"
-**Output y1 (extracted FR):** The system shall provide information to the user regarding the common symptoms of diabetes, including frequent urination, increased thirst, and unexplained weight loss.
+
+**Output y1 (extracted FR):** 
+The system shall provide information to the user regarding the common symptoms of diabetes, including frequent urination, increased thirst, and unexplained weight loss.
 
 **Example 2:**
+
 **Observation X2:** "How do I prevent high blood pressure?"
-**Output y2 (extracted FR):**The system shall provide users with recommendations for preventing high blood pressure, such as healthy lifestyle changes, including diet, exercise, and reducing salt intake.
+
+**Output y2 (extracted FR) :**
+The system shall provide users with recommendations for preventing high blood pressure, such as healthy lifestyle changes, including diet, exercise, and reducing salt intake.
 
 **Example 3:**
+
 **Observation X3:** "Users need to be able to securely log in to the patient portal using their credentials."
-**Output y3 (extracted FR):**The system shall allow users to securely log in to the patient portal using their credentials.
+
+**Output y3 (extracted FR):**
+The system shall allow users to securely log in to the patient portal using their credentials.
 
 ## New Observation X (to be processed):
 "The system must ensure all patient health records are kept private and secure according to regulations."
