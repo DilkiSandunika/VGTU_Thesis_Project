@@ -5,10 +5,15 @@ This project implements an end-to-end AI agent for automatically extracting Func
 ## ✨ Key Features
 
 Automated Extraction: Processes raw text from sources like user stories, interview notes, and change requests.
+
 LLM-Powered Intelligence: Uses the Gemini API to understand context, identify requirements, and generate structured output.
+
 Zero-Shot & Few-Shot Learning: Demonstrates the ability to extract requirements both with and without prior examples.
+
 Domain-Specific Awareness: Tailors extraction to domains like Healthcare, Finance, and E-commerce.
+
 Compliance Tagging: Automatically tags extracted requirements with relevant industry standards (e.g., HIPAA, GDPR, FDA 21 CFR, PCI DSS).
+
 Automated Quality Validation: Measures the quality of extracted FRs using metrics for faithfulness, relevance, and compliance.
 
 ## ⚙️ System Pipeline
