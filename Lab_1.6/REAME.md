@@ -14,7 +14,7 @@
 
 **Retrieval-Augmented Generation** combines two powerful AI techniques:
 
-### **Traditional Approach (Lab 1.5)**
+### **Lab 1.5**
 ```
 User Input → LLM → Output
 ```
@@ -74,7 +74,7 @@ Benefit: LLM learns from relevant examples before generating output
 │    Output: "FR-003: The system shall encrypt..."        │
 │                                                          │
 │  NOW ANALYZE THIS NEW DOCUMENT:                         │
-│  [Your actual input document]                           │
+│  [My actual input document]                           │
 └─────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────┐
@@ -497,67 +497,3 @@ Similar vectors found:
   "clinician viewing health data" → 0.85 similarity ✅
   "doctor reviewing patient files" → 0.88 similarity ✅
 ```
-
-Understands **meaning**, not just **words**!
-
----
-
-## 🎓 For Your Lab Report
-
-### What to Include:
-
-1. **Screenshot of vector database creation** (1,000 examples stored)
-2. **Screenshot of retrieval stage** (3 similar examples found)
-3. **Screenshot of extracted FRs** (final output)
-4. **Metrics table** (performance comparison)
-5. **Reflection** (already included in notebook)
-
-### Key Points to Highlight:
-
-- ✅ Generated 1,000+ diverse training examples
-- ✅ Used ChromaDB with semantic embeddings
-- ✅ Implemented 3-example retrieval
-- ✅ Demonstrated complete RAG pipeline
-- ✅ Showed measurable improvements
-- ✅ Included comprehensive reflection
-
----
-
-## 🚀 Next Steps
-
-1. **Run the notebook** - Get familiar with RAG
-2. **Experiment** - Try different test documents
-3. **Analyze results** - Compare with/without RAG
-4. **Document findings** - Take screenshots
-5. **Write reflection** - Use the provided template
-
----
-
-## ❓ Troubleshooting
-
-**Issue: "Out of memory"**
-- Reduce to 500 examples (change `200` to `100` per domain)
-
-**Issue: "ChromaDB not installing"**
-- Runtime → Restart runtime
-- Re-run installation cell
-
-**Issue: "Slow vector search"**
-- Normal for first query (building index)
-- Subsequent queries are fast
-
-**Issue: "API quota exceeded"**
-- Uses only 1 API call for demo
-- Should work fine with your quota
-
----
-
-## 🎉 Congratulations!
-
-You now have a **production-grade RAG system** that:
-- ✅ Learns from 1,000+ examples
-- ✅ Adapts to different domains
-- ✅ Produces consistent, high-quality FRs
-- ✅ Scales infinitely with more data
-
-This is the **state-of-the-art** approach used by real companies! 🚀
